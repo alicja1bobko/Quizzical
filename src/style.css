@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+}
+
+:root{
+--background: #F5F7FB;
+--font-color: #293264;
+--start-button: #4D5B9E;
+}
+
+html, body, #root {
+    margin:0;
+    font-family: 'Karla', 'Inter', sans-serif;
+    height: 100%;
+    width: 100%;
+}
+
+main{
+  height: 100%;
+  width: 100%;
+  background: var(--background);
+  color: var(--font-color);
+  position: relative;
+}
+
+
+#yellow-blob{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 20vw;
+}
+
+#blue-blob{
+    position: absolute;
+    left:0;
+    bottom: 0;
+    width: 20vw;
+}
+
+.game--intro{
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.game--title{
+    font-weight: 700;
+    font-size: 2em;
+}
+
+.game--text{
+    font-family: 'Inter', sans-serif;
+    margin:0;
+}
+
+.game--start{
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 1em;
+    background-color: var(--start-button);
+    width: 190px;
+    height: 52px;
+    border-radius: 15px;
+    border:none;
+    color: var(--background);
+    cursor:pointer;
+}
+
+.game--start:hover{
+    background: var(--font-color);
+}
+
+.game--options{
+    display:grid;
+    grid:  repeat(3, 1fr) / 1fr 2fr;
+    gap: 20px 20px;
+    padding: 2rem;
+}
+
+.options--label{
+    text-align: left;
+    align-self: center;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.options--select{
+    border: none;
+    border-radius: 0.25em;
+    padding: 0 1em;
+    height: 3em;
+    box-shadow: 0 0 0.5em 0 rgb(0 0 0 / 15%);
+    font:inherit;   
+    color: var(--font-color);
+    text-transform: capitalize;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+}
+
+
+.options--select option{
+    min-height: 1.5em;
+    
+}
+
+
+
