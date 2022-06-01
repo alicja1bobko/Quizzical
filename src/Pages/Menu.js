@@ -1,45 +1,34 @@
 import React, { useState } from 'react'
-
-
+import {useNavigate} from 'react-router-dom'
 import Categories from '../components/Categories';
 
-export default function Menu(props) {
+export default function Menu({fetchQuestions}) {
 
+    const [category, setCategory] = useState('');
+    const [difficulty, setDifficulty] = useState('');
+    const [type, setType] = useState('');
+    const [error, setError] = useState('false');
 
-    const [formData, setFormData] = useState(
-        {
-            category: "any",
-            difficulty: "any",
-            type: "any"
-        }
-    )
-    
-    function handleChange(event) {
-        setFormData(prevFormData => {
-            return {
-                ...prevFormData,
-                [event.target.name]: event.target.value
-                }
-            })
+    const navigate = useNavigate();
+
+    function handleSubmit() {
+        fetchQuestions(category, difficulty, type);
+        navigate('/quiz');
     }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        console.log(formData);
-      
-    }
-
+  
 
     return (
         <section className='game--intro'>
             <h1 className='game--title'>Quizzical</h1>
             <p className='game--text'>Answer the questions and test your knowledge!</p>
+
+            {!error && <h2 className='questions--error'>Oops! We couldn't find any questions with these options!</h2>}
                 <form onSubmit={handleSubmit}>
                 <div className='game--options'>
                     <label htmlFor='category' className='options--label'>Category:</label>
-                <select
-                        value={formData.category}
-                        onChange={handleChange}
+                    <select
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
                         name="category"
                         id="category"
                         className='options--select'
@@ -51,8 +40,8 @@ export default function Menu(props) {
 
                 <label htmlFor='difficulty' className='options--label'>Difficulty:</label>
                     <select
-                        value={formData.difficulty}
-                        onChange={handleChange}
+                        value={difficulty}
+                        onChange={(e) => setDifficulty(e.target.value)}
                         name="difficulty"
                         id="difficulty"
                         className='options--select'>
@@ -65,8 +54,8 @@ export default function Menu(props) {
 
                 <label htmlFor='type' className='options--label'>Type of questions:</label>
                     <select
-                        value={formData.type}
-                        onChange={handleChange}
+                        value={type}
+                        onChange={(e) => setType(e.target.value)}
                         name="type"
                         id="type"
                         className='options--select'>
@@ -76,7 +65,7 @@ export default function Menu(props) {
                 </select>
           
                 </div>
-                <button type="button" onClick={() => { props.showQuiz(true) }} className='game--start'>Start Quiz</button>
+                <button type="button" onClick={ handleSubmit} className='game--start'>Start Quiz</button>
             </form>
            
 
