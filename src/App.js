@@ -13,7 +13,7 @@ function App() {
     <QuestionsProvider>
     <main>
       <img id="yellow-blob" src={yellowBlob} alt="yellow blob" />
-        <HashRouter  basename="https://alicja1bobko.github.io/Quizzical">
+        <HashRouter>
            <Routes>
             <Route path="/" element={<Menu />} />
             <Route path="/quiz" element={<Quiz/>} />
