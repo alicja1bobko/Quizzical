@@ -1,0 +1,26 @@
+.question-container{
+    border-bottom: 0.5px solid #DBDEF0;
+    z-index: 100;
+}
+
+.options{
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--buttons);
+    background-color: transparent;
+    transition: all 0.3s;
+    border-radius: 10px;
+    color: var(--font-color);
+    font-size: 0.9em;
+    font-family: 'Inter';
+    font-weight: 500;
+    margin-right: 1.3rem;
+    margin-bottom: 1.2rem;
+    cursor: pointer;
+}
+
+.question--text{
+    font-size: 1em;
+    color: var(--font-color);
+    padding-bottom: 0.3rem;
+}

@@ -1,40 +1,27 @@
-import React, { useState } from 'react'
-import axios from 'axios';
+import React from 'react'
 import './App.css';
 import yellowBlob from './images/yellow-blob.png';
 import blueBlob from './images/blue-blob.png';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Menu from './Pages/Menu';
-import Quiz from './Pages/Quiz';
-import { Result } from './Pages/Result';
+import Menu from './Pages/Menu/Menu';
+import Quiz from './Pages/Quiz/Quiz';
+import { QuestionsProvider } from './components/QuestionsContext';
 
 function App() {
-  const [questions, setQuestions] = useState();
-  const [score, setScore] = useState(0);
 
-  const fetchQuestions = async (category, difficulty, type) => {
-    const { data } = await axios.get(
-      `https://opentdb.com/api.php?amount=5${category && `&category=${category}`}${difficulty && `&difficulty=${difficulty}`}${type && `&type=${type}`}`
-    )
-    console.log(data);
-  }
-
-    return (
-    <BrowserRouter>
+  return (
+    <QuestionsProvider>
     <main>
       <img id="yellow-blob" src={yellowBlob} alt="yellow blob" />
-        <Routes>
-            <Route exact path="/" element={
-              <Menu
-                fetchQuestions={fetchQuestions}
-              />
-            } />
-          <Route exact path="/quiz" element={<Quiz />} />
-          <Route exact path="/result" element={<Result/>}/>
-      </Routes>
+        <BrowserRouter>
+           <Routes>
+            <Route path="/" element={<Menu />} />
+            <Route path="/quiz" element={<Quiz/>} />
+           </Routes>
+        </BrowserRouter>
       <img id="blue-blob" src={blueBlob} alt="blue blob" />
       </main>
-      </BrowserRouter>
+      </QuestionsProvider>
   );
 }
 

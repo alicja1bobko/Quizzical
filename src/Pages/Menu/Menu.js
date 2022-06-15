@@ -1,28 +1,52 @@
-import React, { useState } from 'react'
-import {useNavigate} from 'react-router-dom'
-import Categories from '../components/Categories';
 
-export default function Menu({fetchQuestions}) {
+import Categories from '../../components/Categories';
+import './Menu.css'
+import { useState, useEffect, useContext } from 'react'
+import { QuestionsContext } from '../../components/QuestionsContext';
+import { useNavigate } from 'react-router-dom';
+import { generateQuestionsState } from './generateQuestionsState';
 
+export default function Menu() {
+    const [questions, setQuestions] = useContext(QuestionsContext);
+    const [fetchingError, setFetchingError] = useState(false);
+    
     const [category, setCategory] = useState('');
     const [difficulty, setDifficulty] = useState('');
     const [type, setType] = useState('');
-    const [error, setError] = useState('false');
-
     const navigate = useNavigate();
 
-    function handleSubmit() {
-        fetchQuestions(category, difficulty, type);
-        navigate('/quiz');
-    }
-  
+    useEffect(() => {
+        setFetchingError(false);
+    }, [category, difficulty, type]);
 
+    const fetchQuestions = (category, difficulty, type) => {
+        return fetch(
+            `https://opentdb.com/api.php?amount=5${category && `&category=${category}`}${difficulty && `&difficulty=${difficulty}`}${type && `&type=${type}`}`
+        ).then((res) => res.json())
+            .then(data => data.results)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        fetchQuestions(category, difficulty, type).then(questions => {
+            if (questions.length === 0) {
+                setFetchingError(true);
+                return;
+            } else {
+                setQuestions(generateQuestionsState(questions));
+                setFetchingError(false);
+                navigate('/quiz');
+            }
+        });
+    };
+        
+        
     return (
         <section className='game--intro'>
             <h1 className='game--title'>Quizzical</h1>
             <p className='game--text'>Answer the questions and test your knowledge!</p>
 
-            {!error && <h2 className='questions--error'>Oops! We couldn't find any questions with these options!</h2>}
+            {fetchingError && <h2 className='questions--error'>Oops! We couldn't find any questions with these options!</h2>}
                 <form onSubmit={handleSubmit}>
                 <div className='game--options'>
                     <label htmlFor='category' className='options--label'>Category:</label>
@@ -31,9 +55,9 @@ export default function Menu({fetchQuestions}) {
                         onChange={(e) => setCategory(e.target.value)}
                         name="category"
                         id="category"
-                        className='options--select'
-                >
-                        <option value="any">Any category</option>
+                        className='options--select'>
+                
+                        <option value="">Any category</option>
                          <Categories />
                         </select>
                   
@@ -46,7 +70,7 @@ export default function Menu({fetchQuestions}) {
                         id="difficulty"
                         className='options--select'>
                         
-                        <option value="any">Any difficulty</option>
+                        <option value="">Any difficulty</option>
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
@@ -59,7 +83,7 @@ export default function Menu({fetchQuestions}) {
                         name="type"
                         id="type"
                         className='options--select'>
-                        <option value="any">Any type</option>
+                        <option value="">Any type</option>
                         <option value="multiple">Multiple Choice</option>
                         <option value="boolean">True / False</option>
                 </select>
