@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "https://alicja1bobko.github.io/Quizzical/static/css/main.6ac42982.css",
-    "main.js": "https://alicja1bobko.github.io/Quizzical/static/js/main.3b71851b.js",
+    "main.js": "https://alicja1bobko.github.io/Quizzical/static/js/main.46dbaf6a.js",
     "index.html": "https://alicja1bobko.github.io/Quizzical/index.html",
     "main.6ac42982.css.map": "https://alicja1bobko.github.io/Quizzical/static/css/main.6ac42982.css.map",
-    "main.3b71851b.js.map": "https://alicja1bobko.github.io/Quizzical/static/js/main.3b71851b.js.map"
+    "main.46dbaf6a.js.map": "https://alicja1bobko.github.io/Quizzical/static/js/main.46dbaf6a.js.map"
   },
   "entrypoints": [
     "static/css/main.6ac42982.css",
-    "static/js/main.3b71851b.js"
+    "static/js/main.46dbaf6a.js"
   ]
 }
