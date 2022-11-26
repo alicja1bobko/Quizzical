@@ -13,7 +13,7 @@ Added additional assignment features: <br>
 🚀 Check answers button not allowed until all questions are answered <br>
 
 
-### Screenshot
+### Screenshots
 
 <table>
         <tr>
